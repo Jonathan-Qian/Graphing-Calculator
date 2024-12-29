@@ -3,13 +3,9 @@ import java.util.ArrayList;
 public class SubEquation extends Element {
     private ArrayList<Element> elements;
 
-    public SubEquation(String s) {
+    public SubEquation(ArrayList<Element> elements) {
         super(Element.SUB_EQUATION);
-        elements = translate(s);
-    }
-
-    private ArrayList<Element> translate(String s) {
-        return null;
+        this.elements = elements;
     }
 
     @Override
