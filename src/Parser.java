@@ -14,7 +14,7 @@ public class Parser {
         return instance;
     }
 
-    public static SubEquation parse(String s) {
+    public SubEquation parse(String s) {
         //placeholder
         return new SubEquation(new ArrayList<>());
     }
