@@ -1,107 +1,116 @@
 import java.util.HashMap;
 
 public enum Operator {
-	ADD("+", new int[] {-1, 1}, new OperatorBehaviour(2) {
+	ADD("+", 0, new int[] {-1, 1}, new OperatorBehaviour(2) {
 		@Override
 		public double behaviour(double[] operands) {
 			return operands[0] + operands[1];
 		}
 	}),
-	SUBTRACT("-", new int[] {-1, 1}, new OperatorBehaviour(2) {
+	SUBTRACT("-", 0, new int[] {-1, 1}, new OperatorBehaviour(2) {
 		@Override
 		public double behaviour(double[] operands) {
 			return operands[0] - operands[1];
 		}
 	}),
-	MULTIPLY("*", new int[] {-1, 1}, new OperatorBehaviour(2) {
+	MULTIPLY("*", 1, new int[] {-1, 1}, new OperatorBehaviour(2) {
 		@Override
 		public double behaviour(double[] operands) {
 			return operands[0] * operands[1];
 		}
 	}),
-	DIVIDE("/", new int[] {-1, 1}, new OperatorBehaviour(2) {
+	DIVIDE("/", 1, new int[] {-1, 1}, new OperatorBehaviour(2) {
 		@Override
 		public double behaviour(double[] operands) {
 			return operands[0] / operands[1];
 		}
 	}),
-	POWER("^", new int[] {-1, 1}, new OperatorBehaviour(2) {
+	POWER("^", 2, new int[] {-1, 1}, new OperatorBehaviour(2) {
 		@Override
 		public double behaviour(double[] operands) {
 			return Math.pow(operands[0], operands[1]);
 		}
 	}),
-	NTHROOT("nthroot", new int[] {1, 2}, new OperatorBehaviour(2) { // nthroot(100, (9+5/2*nthroot(100))) // nthroot(base = 1, exponent = 2)
+	SQRT("sqrt", 3, new int[] {1}, new OperatorBehaviour(1) {
+		@Override
+		public double behaviour(double[] operands) {
+			return Math.sqrt(operands[0]);
+		}
+	}),
+	NTHROOT("nthroot", 3, new int[] {1, 2}, new OperatorBehaviour(2) { // nthroot(100, (9+5/2*nthroot(100))) // nthroot(base = 1, exponent = 2)
 		@Override
 		public double behaviour(double[] operands) {
 			return Math.pow(operands[0], 1/operands[1]);
 		}
 	}),
-	ABSOLUTE("|", new int[] {1}, new OperatorBehaviour(1) {
+	ABSOLUTE("abs", 3, new int[] {1}, new OperatorBehaviour(1) { // formatter will allow users to use '|' notation
 		@Override
 		public double behaviour(double[] operands) {
 			return Math.abs(operands[0]);
 		}
 	}),
-	SIN("sin", new int[] {1}, new OperatorBehaviour(1) {
+	SIN("sin", 3, new int[] {1}, new OperatorBehaviour(1) {
 		@Override
 		public double behaviour(double[] operands) {
 			return Math.sin(operands[0]);
 		}
 	}),
-	COS("cos", new int[] {1}, new OperatorBehaviour(1) {
+	COS("cos", 3, new int[] {1}, new OperatorBehaviour(1) {
 		@Override
 		public double behaviour(double[] operands) {
 			return Math.cos(operands[0]);
 		}
 	}),
-	TAN("tan", new int[] {1}, new OperatorBehaviour(1) {
+	TAN("tan", 3, new int[] {1}, new OperatorBehaviour(1) {
 		@Override
 		public double behaviour(double[] operands) {
 			return Math.tan(operands[0]);
 		}
 	}),
-	ARCSIN("arcsin", new int[] {1}, new OperatorBehaviour(1) {
+	ARCSIN("arcsin", 3, new int[] {1}, new OperatorBehaviour(1) {
 		@Override
 		public double behaviour(double[] operands) {
 			return Math.asin(operands[0]);
 		}
 	}),
-	ARCCOS("arccos", new int[] {1}, new OperatorBehaviour(1) {
+	ARCCOS("arccos", 3, new int[] {1}, new OperatorBehaviour(1) {
 		@Override
 		public double behaviour(double[] operands) {
 			return Math.acos(operands[0]);
 		}
 	}),
-	ARCTAN("arctan", new int[] {1}, new OperatorBehaviour(1) {
+	ARCTAN("arctan", 3, new int[] {1}, new OperatorBehaviour(1) {
 		@Override
 		public double behaviour(double[] operands) {
 			return Math.atan(operands[0]);
 		}
 	}),
-	LOG("log", new int[] {1, 2}, new OperatorBehaviour(2) { //log(value:1, base:2)
+	LOG("log", 3, new int[] {1, 2}, new OperatorBehaviour(2) { //log(value:1, base:2)
 		@Override
 		public double behaviour(double[] operands) {
 			return Math.log(operands[0]) / Math.log(operands[1]);
 		}
 	}),
-	LN("ln", new int[] {1},  new OperatorBehaviour(1) {
+	LN("ln", 3, new int[] {1},  new OperatorBehaviour(1) {
 		@Override
 		public double behaviour(double[] operands) {
 			return Math.log(operands[0]);
 		}
 	});
 	
-	final OperatorBehaviour operationBehaviour;
-	final String symbol;
-	final int[] relativeOperandIndices; // relative index of operand(s) (by Element object and not by character) from the end of the symbol string (0 means the character at the end of symbol)
+	
+	private final String symbol;
+	private final int priority;
+	private final int[] relativeOperandIndices; // relative index of operand(s) (by Element object and not by character) from the end of the symbol string (0 means the character at the end of symbol)
+	private final OperatorBehaviour operationBehaviour;
 	
 	private static final HashMap<String, Operator> operatorMap = initOperatorMap();
 
-	private Operator(String symbol, int[] relativeOperandIndices, OperatorBehaviour operationBehaviour) {
-		this.operationBehaviour = operationBehaviour;
+	private Operator(String symbol, int priority, int[] relativeOperandIndices, OperatorBehaviour operationBehaviour) {
 		this.symbol = symbol;
+		this.priority = priority;
 		this.relativeOperandIndices = relativeOperandIndices;
+		this.operationBehaviour = operationBehaviour;
 	}
 
 	private static HashMap<String, Operator> initOperatorMap() {

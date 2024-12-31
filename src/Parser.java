@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 
 public class Parser {
     public static Parser instance;
@@ -14,8 +13,8 @@ public class Parser {
         return instance;
     }
 
-    public SubEquation parse(String s) {
+    public SubExpression parse(String s) {
         //placeholder
-        return new SubEquation(new ArrayList<>());
+        return new SubExpression(Operator.ABSOLUTE, new Element[] {new Number(1)});
     }
 }
