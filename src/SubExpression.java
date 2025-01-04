@@ -1,6 +1,6 @@
 public class SubExpression extends Element {
-    private Element[] operands;
-    private Operator operator;
+    private final Element[] operands;
+    private final Operator operator;
 
     public SubExpression(Operator operator, Element[] operands) {
         super(Element.SUB_EQUATION);
@@ -10,8 +10,6 @@ public class SubExpression extends Element {
 
     @Override
     public double simplify() {
-        return 1.0;
+        return operator.operate(operands);
     }
-
-    //Do we need Element class and element type anymore now that subequation is no longer holding an element list?
 }

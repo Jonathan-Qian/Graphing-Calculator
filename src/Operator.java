@@ -31,6 +31,12 @@ public enum Operator {
 			return Math.pow(operands[0], operands[1]);
 		}
 	}),
+	EXPONENTIAL("exp", 3, new int[] {1}, new OperatorBehaviour(1) {
+		@Override
+		public double behaviour(double[] operands) {
+			return Math.exp(operands[0]);
+		}
+	}),
 	SQRT("sqrt", 3, new int[] {1}, new OperatorBehaviour(1) {
 		@Override
 		public double behaviour(double[] operands) {
@@ -49,55 +55,72 @@ public enum Operator {
 			return Math.abs(operands[0]);
 		}
 	}),
-	SIN("sin", 3, new int[] {1}, new OperatorBehaviour(1) {
+	SINE("sin", 3, new int[] {1}, new OperatorBehaviour(1) {
 		@Override
 		public double behaviour(double[] operands) {
 			return Math.sin(operands[0]);
 		}
 	}),
-	COS("cos", 3, new int[] {1}, new OperatorBehaviour(1) {
+	COSINE("cos", 3, new int[] {1}, new OperatorBehaviour(1) {
 		@Override
 		public double behaviour(double[] operands) {
 			return Math.cos(operands[0]);
 		}
 	}),
-	TAN("tan", 3, new int[] {1}, new OperatorBehaviour(1) {
+	TANGENT("tan", 3, new int[] {1}, new OperatorBehaviour(1) {
 		@Override
 		public double behaviour(double[] operands) {
 			return Math.tan(operands[0]);
 		}
 	}),
-	ARCSIN("arcsin", 3, new int[] {1}, new OperatorBehaviour(1) {
+	ARCSINE("arcsin", 3, new int[] {1}, new OperatorBehaviour(1) {
 		@Override
 		public double behaviour(double[] operands) {
 			return Math.asin(operands[0]);
 		}
 	}),
-	ARCCOS("arccos", 3, new int[] {1}, new OperatorBehaviour(1) {
+	ARCCOSSINE("arccos", 3, new int[] {1}, new OperatorBehaviour(1) {
 		@Override
 		public double behaviour(double[] operands) {
 			return Math.acos(operands[0]);
 		}
 	}),
-	ARCTAN("arctan", 3, new int[] {1}, new OperatorBehaviour(1) {
+	ARCTANGENT("arctan", 3, new int[] {1}, new OperatorBehaviour(1) {
 		@Override
 		public double behaviour(double[] operands) {
 			return Math.atan(operands[0]);
 		}
 	}),
-	LOG("log", 3, new int[] {1, 2}, new OperatorBehaviour(2) { //log(value:1, base:2)
+	SECANT("sec", 3, new int[] {1}, new OperatorBehaviour(1) {
+		@Override
+		public double behaviour(double[] operands) {
+			return 1 / Math.sin(operands[0]);
+		}
+	}),
+	COSECANT("csc", 3, new int[] {1}, new OperatorBehaviour(1) {
+		@Override
+		public double behaviour(double[] operands) {
+			return 1 / Math.cos(operands[0]);
+		}
+	}),
+	COTANGENT("cot", 3, new int[] {1}, new OperatorBehaviour(1) {
+		@Override
+		public double behaviour(double[] operands) {
+			return 1 / Math.tan(operands[0]);
+		}
+	}),
+	LOGARITHM("log", 3, new int[] {1, 2}, new OperatorBehaviour(2) { //log(value:1, base:2)
 		@Override
 		public double behaviour(double[] operands) {
 			return Math.log(operands[0]) / Math.log(operands[1]);
 		}
 	}),
-	LN("ln", 3, new int[] {1},  new OperatorBehaviour(1) {
+	NATURAL_LOGARITHM("ln", 3, new int[] {1},  new OperatorBehaviour(1) {
 		@Override
 		public double behaviour(double[] operands) {
 			return Math.log(operands[0]);
 		}
 	});
-	
 	
 	private final String symbol;
 	private final int priority;
@@ -122,5 +145,27 @@ public enum Operator {
 		}
 
 		return map;
+	}
+
+	public int getPriority() {
+		return priority;
+	}
+
+	public int[] getRelativeOperandIndices() {
+		return relativeOperandIndices;
+	}
+
+	public double operate(Element[] operands) {
+		double[] simplifiedOperands = new double[operands.length];
+
+		for (int i = 0; i < operands.length; i++) {
+			simplifiedOperands[i] = operands[i].simplify();
+		}
+
+		return operationBehaviour.operate(simplifiedOperands);
+	}
+
+	public static boolean isOperator(String s) {
+		return operatorMap.get(s) != null;
 	}
 }

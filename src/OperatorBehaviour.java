@@ -10,8 +10,8 @@ public abstract class OperatorBehaviour {
             return behaviour(operands);
         }
         
-        System.out.println("Invalid number of operands. Operation result defaulted to 1.");
-        return 1;
+        System.out.println("Invalid number of operands. Operation result defaulted to 0.");
+        return 0;
     }
     
     public abstract double behaviour(double[] operands);
