@@ -3,7 +3,7 @@ public class SubExpression extends Element {
     private final Operator operator;
 
     public SubExpression(Operator operator, Element[] operands) {
-        super(Element.SUB_EQUATION);
+        super(Element.SUB_EXPRESSION);
         this.operator = operator;
         this.operands = operands;
     }

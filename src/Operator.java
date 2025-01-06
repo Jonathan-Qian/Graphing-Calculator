@@ -120,39 +120,51 @@ public enum Operator {
 		public double behaviour(double[] operands) {
 			return Math.log(operands[0]);
 		}
+	}),
+	FACTORIAL("!", 3, new int[] {-1}, new OperatorBehaviour(1) {
+		@Override
+		public double behaviour(double[] operands) {
+			int product = 1;
+
+			for (int i = 2; i < operands[0]; i++) {
+				product *= i;
+			}
+
+			return product;
+		}
 	});
 	
-	private final String symbol;
-	private final int priority;
-	private final int[] relativeOperandIndices; // relative index of operand(s) (by Element object and not by character) from the end of the symbol string (0 means the character at the end of symbol)
-	private final OperatorBehaviour operationBehaviour;
+	private final String SYMBOL;
+	private final int PRIORITY;
+	private final int[] RELATIVE_OPERAND_INDICES; // relative index of operand(s) (by Element object and not by character) from the operator itself (0 means itself)
+	private final OperatorBehaviour OPERATION_BEHAVIOUR;
 	
-	private static final HashMap<String, Operator> operatorMap = initOperatorMap();
+	private static final HashMap<String, Operator> OPERATOR_MAP = initOPERATOR_MAP();
 
 	private Operator(String symbol, int priority, int[] relativeOperandIndices, OperatorBehaviour operationBehaviour) {
-		this.symbol = symbol;
-		this.priority = priority;
-		this.relativeOperandIndices = relativeOperandIndices;
-		this.operationBehaviour = operationBehaviour;
+		this.SYMBOL = symbol;
+		this.PRIORITY = priority;
+		this.RELATIVE_OPERAND_INDICES = relativeOperandIndices;
+		this.OPERATION_BEHAVIOUR = operationBehaviour;
 	}
 
-	private static HashMap<String, Operator> initOperatorMap() {
+	private static HashMap<String, Operator> initOPERATOR_MAP() {
 		Operator[] operators = Operator.values();
 		HashMap<String, Operator> map = new HashMap<>();
 
 		for (Operator o : operators) {
-			map.put(o.symbol, o);
+			map.put(o.SYMBOL, o);
 		}
 
 		return map;
 	}
 
-	public int getPriority() {
-		return priority;
+	public int getPRIORITY() {
+		return PRIORITY;
 	}
 
-	public int[] getRelativeOperandIndices() {
-		return relativeOperandIndices;
+	public int[] getRELATIVE_OPERAND_INDICES() {
+		return RELATIVE_OPERAND_INDICES;
 	}
 
 	public double operate(Element[] operands) {
@@ -162,10 +174,14 @@ public enum Operator {
 			simplifiedOperands[i] = operands[i].simplify();
 		}
 
-		return operationBehaviour.operate(simplifiedOperands);
+		return OPERATION_BEHAVIOUR.operate(simplifiedOperands);
 	}
 
-	public static boolean isOperator(String s) {
-		return operatorMap.get(s) != null;
+	public Operator getOperator(String symbol) {
+		return OPERATOR_MAP.get(symbol);
+	}
+
+	public static boolean isOperator(String symbol) {
+		return OPERATOR_MAP.get(symbol) != null;
 	}
 }

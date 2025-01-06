@@ -14,6 +14,7 @@ public class Parser {
     }
 
     public SubExpression parse(String s) {
+        
         //placeholder
         return new SubExpression(Operator.ABSOLUTE, new Element[] {new Number(1)});
     }

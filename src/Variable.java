@@ -26,13 +26,13 @@ public class Variable extends Element {
         return value;
     }
 
-    public static Variable getVariable(char c) {
+    public static Variable getVariable(char symbol) {
         try {
-            return variableMap.get(c);
+            return variableMap.get(symbol);
         }
         catch (Exception e) {
             Variable var = new Variable();
-            variableMap.put(c, var);
+            variableMap.put(symbol, var);
             return var;
         }
     }
