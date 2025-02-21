@@ -1,3 +1,5 @@
+package math;
+
 public class Number extends Element {
     private final double VALUE;
 

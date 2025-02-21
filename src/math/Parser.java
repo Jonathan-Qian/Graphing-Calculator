@@ -1,10 +1,9 @@
+package math;
 
 public class Parser {
     public static Parser instance;
 
-    private Parser() {
-
-    }
+    private Parser() {}
 
     public static Parser getInstance() {
         if (instance == null)
@@ -14,8 +13,14 @@ public class Parser {
     }
 
     public SubExpression parse(String s) {
+
+
         
         //placeholder
         return new SubExpression(Operator.ABSOLUTE, new Element[] {new Number(1)});
     }
+
+    //format
+    //split into elements
+    //split into sub expressions by priority
 }

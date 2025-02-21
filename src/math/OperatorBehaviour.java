@@ -1,3 +1,5 @@
+package math;
+
 public abstract class OperatorBehaviour {
     private final int numOperands;
     

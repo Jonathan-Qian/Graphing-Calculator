@@ -1,8 +1,10 @@
+package math;
+
 import java.util.HashMap;
 
 public class Variable extends Element {
 
-    private static HashMap<Character, Variable> variableMap;
+    private static final HashMap<Character, Variable> VARIABLE_MAP = new HashMap<>();
     private double value;
 
     private Variable(double n) {
@@ -28,11 +30,11 @@ public class Variable extends Element {
 
     public static Variable getVariable(char symbol) {
         try {
-            return variableMap.get(symbol);
+            return VARIABLE_MAP.get(symbol);
         }
         catch (Exception e) {
             Variable var = new Variable();
-            variableMap.put(symbol, var);
+            VARIABLE_MAP.put(symbol, var);
             return var;
         }
     }

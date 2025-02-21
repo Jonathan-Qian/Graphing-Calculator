@@ -1,3 +1,5 @@
+package math;
+
 import java.util.HashMap;
 
 public enum Operator {
@@ -79,7 +81,7 @@ public enum Operator {
 			return Math.asin(operands[0]);
 		}
 	}),
-	ARCCOSSINE("arccos", 3, new int[] {1}, new OperatorBehaviour(1) {
+	ARCCOSINE("arccos", 3, new int[] {1}, new OperatorBehaviour(1) {
 		@Override
 		public double behaviour(double[] operands) {
 			return Math.acos(operands[0]);
@@ -136,8 +138,8 @@ public enum Operator {
 	
 	private final String SYMBOL;
 	private final int PRIORITY;
-	private final int[] RELATIVE_OPERAND_INDICES; // relative index of operand(s) (by Element object and not by character) from the operator itself (0 means itself)
-	private final OperatorBehaviour OPERATION_BEHAVIOUR;
+	private final int[] RELATIVE_OPERAND_INDICES; // relative index of operand(s) (by Math.Element object and not by character) from the operator itself (0 means itself)
+	private final OperatorBehaviour OPERATOR_BEHAVIOUR;
 	
 	private static final HashMap<String, Operator> OPERATOR_MAP = initOPERATOR_MAP();
 
@@ -145,7 +147,7 @@ public enum Operator {
 		this.SYMBOL = symbol;
 		this.PRIORITY = priority;
 		this.RELATIVE_OPERAND_INDICES = relativeOperandIndices;
-		this.OPERATION_BEHAVIOUR = operationBehaviour;
+		this.OPERATOR_BEHAVIOUR = operationBehaviour;
 	}
 
 	private static HashMap<String, Operator> initOPERATOR_MAP() {
@@ -174,7 +176,7 @@ public enum Operator {
 			simplifiedOperands[i] = operands[i].simplify();
 		}
 
-		return OPERATION_BEHAVIOUR.operate(simplifiedOperands);
+		return OPERATOR_BEHAVIOUR.operate(simplifiedOperands);
 	}
 
 	public Operator getOperator(String symbol) {

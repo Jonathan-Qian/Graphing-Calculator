@@ -1,3 +1,5 @@
+package math;
+
 import java.util.HashMap;
 
 public enum Constant {
