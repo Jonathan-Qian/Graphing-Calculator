@@ -1,1 +1,1 @@
-A Java graphing calculator app with a built-in general-purpose math parsing system. The parsing system, equation model, solving method and formatter are designed in a way such that new functions, operators, formatting behaviours and constants can be added in seconds.
+A general-purpose graphing-calculator with a built-in math parser. The math parsing system and equation model is made in a way such that the addition of new features (math functions, operators, constants, formatting behaviours) can be made in seconds.
