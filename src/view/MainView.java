@@ -1,4 +1,4 @@
-package ui;
+package view;
 
 import javax.swing.JFrame;
 import java.awt.*;
@@ -19,6 +19,7 @@ public class MainView extends JFrame {
     private void initComponents() {
         expressionListPanel = new ExpressionListPanel();
         add(expressionListPanel, BorderLayout.WEST);
+
 
         functionViewportPanel = new FunctionViewportPanel();
         add(functionViewportPanel, BorderLayout.CENTER);
