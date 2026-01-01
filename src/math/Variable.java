@@ -2,9 +2,12 @@ package math;
 
 import java.util.HashMap;
 
+// the difference between variables and numbers are that variables can only be created through a static method, ensuring that any variables with the same symbol refer to the same variable object
+// this syncs the value of all occurrences of the same variable from the original string
+// also, a variable's value is mutable unlike a number
 public class Variable extends Element {
 
-    private static final HashMap<Character, Variable> VARIABLE_MAP = new HashMap<>();
+    private static final HashMap<Character, Variable> variableMap = new HashMap<>();
     private double value;
 
     private Variable(double n) {
@@ -30,11 +33,11 @@ public class Variable extends Element {
 
     public static Variable getVariable(char symbol) {
         try {
-            return VARIABLE_MAP.get(symbol);
+            return variableMap.get(symbol);
         }
         catch (Exception e) {
             Variable var = new Variable();
-            VARIABLE_MAP.put(symbol, var);
+            variableMap.put(symbol, var);
             return var;
         }
     }

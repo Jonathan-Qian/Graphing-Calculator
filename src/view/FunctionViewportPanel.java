@@ -5,7 +5,6 @@ import math.Calculator;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 
 public class FunctionViewportPanel extends JPanel {

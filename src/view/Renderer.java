@@ -1,7 +1,7 @@
 package view;
 
 import math.Calculator;
-import math.SubExpression;
+import math.Expression;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -18,7 +18,7 @@ public class Renderer {
     }
 
     public BufferedImage render() {
-        ArrayList<SubExpression> expressions = calculator.getExpressions();
+        ArrayList<Expression> expressions = calculator.getExpressions();
         BufferedImage bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 
         //for (SubExpression expression : expressions) {

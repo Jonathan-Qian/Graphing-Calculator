@@ -1,15 +1,15 @@
 package math;
 
 public class Number extends Element {
-    private final double VALUE;
+    private final double value;
 
     public Number(double number) {
         super(Element.NUMBER);
-        VALUE = number;
+        value = number;
     }
 
     @Override
     public double simplify() {
-        return VALUE;
+        return value;
     }
 }

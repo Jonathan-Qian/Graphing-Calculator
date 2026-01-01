@@ -12,13 +12,12 @@ public class Parser {
         return instance;
     }
 
-    public SubExpression parse(String s) {
+    //public Expression parse(String s) {
 
 
         
-        //placeholder
-        return new SubExpression(Operator.ABSOLUTE, new Element[] {new Number(1)});
-    }
+
+    //}
 
     //format
     //split into elements
