@@ -32,13 +32,12 @@ public class Variable extends Element {
     }
 
     public static Variable getVariable(char symbol) {
-        try {
-            return variableMap.get(symbol);
-        }
-        catch (Exception e) {
+        if (!variableMap.containsKey(symbol)) {
             Variable var = new Variable();
             variableMap.put(symbol, var);
             return var;
         }
+
+        return variableMap.get(symbol);
     }
 }

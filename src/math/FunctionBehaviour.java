@@ -21,6 +21,9 @@ public abstract class FunctionBehaviour {
         this.minNumArgumentsRight = minNumArgumentsRight;
         this.maxNumArgumentsRight = maxNumArgumentsRight;
     }
+    public FunctionBehaviour(int priority, int numArgumentsLeft, int numArgumentsRight) {
+        this(priority, numArgumentsLeft, numArgumentsLeft, numArgumentsRight, numArgumentsRight);
+    }
 
     public Double apply(Element[] leftArguments, Element[] rightArguments) {
         if (isNumArgumentsValid(leftArguments, minNumArgumentsLeft, maxNumArgumentsLeft) && isNumArgumentsValid(rightArguments, minNumArgumentsRight, maxNumArgumentsRight)) {

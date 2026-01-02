@@ -9,6 +9,8 @@ public class Calculator {
 
     public Calculator(ArrayList<Expression> expressions) {
         this.expressions = expressions;
+        // placeholder
+        expressions.add(new Expression(new Element[] {new Number(0.01)}, new Element[] {new Expression(new Element[] {Variable.getVariable('x')}, new Element[] {new Number(2)}, Function.getFunctionBehaviour("^"))}, Function.getFunctionBehaviour("*")));
     }
     public Calculator() {
         this(new ArrayList<>());

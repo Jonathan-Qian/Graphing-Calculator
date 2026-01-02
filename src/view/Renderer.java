@@ -2,6 +2,7 @@ package view;
 
 import math.Calculator;
 import math.Expression;
+import math.Variable;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -21,21 +22,29 @@ public class Renderer {
         ArrayList<Expression> expressions = calculator.getExpressions();
         BufferedImage bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 
-        //for (SubExpression expression : expressions) {
-            int yStart, yEnd = 0;
+        for (Expression expression : expressions) {
+            Variable x = Variable.getVariable('x');
 
-            for (int i = 0; i < width; i++) {
-                yStart = yEnd;
-                yEnd = (int) (Math.pow(i + 1, 2) / 100);
+            x.setValue(0);
+
+            int yStart = (int) expression.simplify(), yEnd;
+
+            for (int i = 1; i < width; i++) {
+                x.setValue(i);
+
+                yEnd = (int) expression.simplify();
 
                 for (int j = yStart; j <= yEnd; j++) {
+                    int invert = bufferedImage.getHeight() - j;
 
-                    if (j >= 0 && j < bufferedImage.getHeight())
-                        bufferedImage.setRGB(i, j, Color.RED.getRGB());
-
+                    if (invert >= 0 && invert < bufferedImage.getHeight()) {
+                        bufferedImage.setRGB(i, invert, Color.RED.getRGB());
+                    }
                 }
+
+                yStart = yEnd;
             }
-        //}
+        }
 
         return bufferedImage;
     }

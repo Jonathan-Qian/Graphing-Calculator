@@ -1,1 +1,1 @@
-A general-purpose graphing-calculator with a built-in math parser. The math parsing system and equation model is made in a way such that the addition of new features (math functions, operators, constants, formatting behaviours) can be made in seconds.
+A general-purpose graphing-calculator with a built-in math parser. The math parsing system and equation model is made in a way such that the addition of new features (math functions, functions, constants, formatting behaviours) can be made in seconds.
