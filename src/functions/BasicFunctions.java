@@ -11,38 +11,38 @@ public class BasicFunctions implements FunctionProvider {
     public Map<String, FunctionBehaviour> getFunctions() {
         Map<String, FunctionBehaviour> ops = new HashMap<>();
 
-        ops.put("+", new FunctionBehaviour(0, 1, 1) {
+        ops.put("+", new FunctionBehaviour(0, 2) {
             @Override
-            public Double behaviour(double[] leftArguments, double[] rightArguments) {
-                return leftArguments[0] + rightArguments[0];
+            public Double behaviour(double[] arguments) {
+                return arguments[0] + arguments[1];
             }
         });
 
-        ops.put("-", new FunctionBehaviour(0, 1, 1) {
+        ops.put("-", new FunctionBehaviour(0, 2) {
             @Override
-            public Double behaviour(double[] leftArguments, double[] rightArguments) {
-                return leftArguments[0] - rightArguments[0];
+            public Double behaviour(double[] arguments) {
+                return arguments[0] - arguments[1];
             }
         });
 
-        ops.put("*", new FunctionBehaviour(1, 1, 1) {
+        ops.put("*", new FunctionBehaviour(1, 2) {
             @Override
-            public Double behaviour(double[] leftArguments, double[] rightArguments) {
-                return leftArguments[0] * rightArguments[0];
+            public Double behaviour(double[] arguments) {
+                return arguments[0] * arguments[1];
             }
         });
 
-        ops.put("/", new FunctionBehaviour(1, 1, 1) {
+        ops.put("/", new FunctionBehaviour(1, 2) {
             @Override
-            public Double behaviour(double[] leftArguments, double[] rightArguments) {
-                return leftArguments[0] / rightArguments[0];
+            public Double behaviour(double[] arguments) {
+                return arguments[0] / arguments[1];
             }
         });
 
-        ops.put("^", new FunctionBehaviour(2, 1, 1) {
+        ops.put("^", new FunctionBehaviour(2, 2) {
             @Override
-            public Double behaviour(double[] leftArguments, double[] rightArguments) {
-                return Math.pow(leftArguments[0], rightArguments[0]);
+            public Double behaviour(double[] arguments) {
+                return Math.pow(arguments[0], arguments[1]);
             }
         });
 
