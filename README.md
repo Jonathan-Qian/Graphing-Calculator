@@ -3,4 +3,5 @@ A general-purpose graphing calculator with a built-in math parser and renderer. 
 which is equivalent to:
 "0.1\*x^2".
 The unimplemented formatter should solve this problem. The expression model (expression tree) and function interface and plug-in system is complete. The current implementation of the parser and renderer is rudimentary and improvements will be made.
-<img width="1574" height="1042" alt="Screenshot 2026-01-02 203310" src="https://github.com/user-attachments/assets/3ecb60fb-4c59-4c7b-bbd4-30b98fc47c96" />
+
+<img width="1920" height="1140" alt="Screenshot 2026-01-03 154013" src="https://github.com/user-attachments/assets/f934be4a-c981-421b-b414-b2f5ebcdf1df" />
