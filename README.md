@@ -4,4 +4,4 @@ which is equivalent to:
 "0.1\*x^2".
 The unimplemented formatter should solve this problem. The expression model (expression tree) and function interface and plug-in system is complete. The current implementation of the parser and renderer is rudimentary and improvements will be made.
 
-<img width="1920" height="1140" alt="Screenshot 2026-01-03 154013" src="https://github.com/user-attachments/assets/f934be4a-c981-421b-b414-b2f5ebcdf1df" />
+<img width="1920" height="1140" alt="Screenshot 2026-01-03 185548" src="https://github.com/user-attachments/assets/eb77560d-a7b5-46fa-910f-c20560c51a26" />
