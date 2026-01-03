@@ -5,7 +5,7 @@ import java.awt.*;
 
 public class MainView extends JFrame {
     private ExpressionListPanel expressionListPanel;
-    private FunctionViewportPanel functionViewportPanel;
+    protected static FunctionViewportPanel functionViewportPanel;
 
     public MainView() {
         setTitle("Graphing Calculator");

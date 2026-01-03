@@ -13,7 +13,10 @@ public class Formatter {
     }
 
     public String format(String s) {
-        //placeholder
-        return "";
+        s = s.replaceAll("\\s+","");
+
+        
+
+        return s;
     }
 }

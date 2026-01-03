@@ -1,7 +1,16 @@
 package view;
 
+import math.Element;
+import math.Expression;
+import math.Function;
+import math.Number;
+import math.Parser;
+
 import javax.swing.*;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,9 +33,26 @@ public class ExpressionListPanel extends JPanel implements ActionListener {
         addButton.addActionListener(this);
         topBar.add(addButton, BorderLayout.EAST);
 
-        tableModel = new DefaultTableModel(1, 1);
+        tableModel = new DefaultTableModel(0, 1);
+        tableModel.addTableModelListener(new TableModelListener() {
+            @Override
+            public void tableChanged(TableModelEvent e) {
+                int row = e.getFirstRow();
+                int column = e.getColumn();
+
+                if (e.getType() == TableModelEvent.UPDATE) {
+                    TableModel model = (TableModel) e.getSource();
+                    Object newData = model.getValueAt(row, column);
+                    MainView.functionViewportPanel.renderer.calculator.setExpression(row, Parser.getInstance().parse((String) newData));
+                }
+
+                MainView.functionViewportPanel.repaint();
+            }
+        });
+
         expressionList = new JTable(tableModel);
         scrollPane = new JScrollPane(expressionList);
+
 
         add(topBar, BorderLayout.NORTH);
         add(scrollPane, BorderLayout.CENTER);
@@ -36,6 +62,7 @@ public class ExpressionListPanel extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == addButton) {
             tableModel.addRow(new Object[] {""});
+            MainView.functionViewportPanel.renderer.calculator.addExpression(new Expression(new Element[] {new Number(0), new Number(0)}, Function.getFunctionBehaviour("+")));
         }
     }
 }
