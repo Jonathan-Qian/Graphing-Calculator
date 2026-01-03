@@ -5,12 +5,12 @@ public abstract class FunctionBehaviour {
     private final int minNumArguments, maxNumArguments;
 
     // any combination of the following  is valid (any negative number means infinity):
-    // at least n argument: minNumArguments = n, maxNumArguments = -1
-    // at most n arguments: minNumArguments = 0, maxNumArguments = n
-    // exactly n arguments: minNumArguments = n, maxNumArguments = n
-    // between n and k arguments: minNumArguments = n, maxNumArguments = k
-    // any number of arguments: minNumArguments = 0, maxNumArguments = -1
-    // no arguments: minNumArguments = 0, maxNumArguments = 0
+    // at least n arguments (n+): minNumArguments = n, maxNumArguments = -1
+    // at most n arguments (0 - n): minNumArguments = 0, maxNumArguments = n
+    // exactly n arguments (n): minNumArguments = n, maxNumArguments = n
+    // between n and k arguments (n - k): minNumArguments = n, maxNumArguments = k
+    // any number of arguments (0+): minNumArguments = 0, maxNumArguments = -1
+    // no arguments (0): minNumArguments = 0, maxNumArguments = 0
     // domain and range of the operator can be enforced within the implementation of behaviour()
     // ex. if (x > 5 && x < 6)...
     // negative numbers are allowed for priority
@@ -34,6 +34,18 @@ public abstract class FunctionBehaviour {
 
     // returns null if arguments outside of domain or result outside of range
     public abstract Double behaviour(double[] arguments);
+
+    public int getPriority() {
+        return priority;
+    }
+
+    public int getMinNumArguments() {
+        return minNumArguments;
+    }
+
+    public int getMaxNumArguments() {
+        return maxNumArguments;
+    }
 
     public boolean canHaveNoArguments() {
         return minNumArguments < 1;

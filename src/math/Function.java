@@ -28,4 +28,8 @@ public class Function {
     public static FunctionBehaviour getFunctionBehaviour(String symbol) {
         return functionMap.get(symbol);
     }
+
+    public static HashMap<String, FunctionBehaviour> getFunctionMap() {
+        return functionMap;
+    }
 }
