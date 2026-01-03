@@ -14,82 +14,91 @@ public class Parser {
         return instance;
     }
 
+    // doesn't work for functions with no arguments yet
+    // this parser is very basic for now
     public Expression parse(String s) {
-        // split into elements
-        ArrayList<String> elements = split(s);
+        int index = s.indexOf('(');
+        FunctionBehaviour f = Function.getFunctionBehaviour(s.substring(0, index));
+        String argumentString;
+        ArrayList<String> split;
 
-        // build expression tree
-        return build(elements);
-    }
+        if (s.charAt(s.length() - 1) != ')') {
+            System.err.println("Parsing warning: missing closing parenthesis");
+            argumentString = s.substring(index + 1);
+        }
+        else {
+            argumentString = s.substring(index + 1, s.length() - 1);
+        }
 
-    private ArrayList<String> split(String s) {
-        char c;
-        int start, end;
-        ArrayList<String> elements = new ArrayList<>();
+        split = split(argumentString);
 
-        for (int i = 0; i < s.length(); i++) {
-            c = s.charAt(i);
+        Element[] arguments = new Element[split.size()];
 
-            if (c == '(') {
-                start = i;
-                end = -1;
-                int depth = 0;
+        String str;
 
-                for (int j = i + 1; j < s.length(); j++) {
-                    if (s.charAt(j) == '(') {
-                        depth++;
+        for (int i = 0; i < split.size(); i++) {
+            str = split.get(i);
+
+            if (Character.isDigit(str.charAt(0)) || str.charAt(0) == '.') {
+                arguments[i] = new Number(Double.parseDouble(str));
+            }
+            else {
+                if (str.indexOf('(') < 0 && (Function.getFunctionBehaviour(str) == null || Function.getFunctionBehaviour(str).canHaveNoArguments())) {
+                    Double value = Constant.getConstantValue(str);
+
+                    if (value != null) {
+                        arguments[i] = new Number(Constant.getConstantValue(str));
                     }
-                    else if (s.charAt(j) == ')') {
-                        depth--;
-
-                        if (depth < 0) {
-                            end = j;
-                            break;
+                    else {
+                        if (str.length() == 1) {
+                            arguments[i] = Variable.getVariable(str.charAt(0));
+                        }
+                        else {
+                            System.err.println("Parsing error: unidentified constant \"" + str + "\"");
+                            return null;
                         }
                     }
                 }
-
-                if (end > -1) {
-                    elements.add(s.substring(start, end));
-                }
                 else {
-                    System.err.println("Parsing error: opening parenthesis with no closing parenthesis");
-                    return null;
+                    arguments[i] = parse(str);
                 }
-
-                i = end - 1;
-            }
-            else if (c == ')') {
-                System.err.println("Parsing warning: closing parenthesis with no opening parenthesis");
-            }
-            else if (Character.isDigit(c)) {
-                start = i;
-                end = i + 1;
-
-                for (int j = i + 1; j < s.length(); j++) {
-                    if (!Character.isDigit(s.charAt(j)) && s.charAt(j) != '.') {
-                        end = j;
-                        break;
-                    }
-                }
-
-                elements.add(s.substring(start, end));
-
-                i = end - 1;
-            }
-            else {
-
             }
         }
 
-        return elements;
+        if (f == null) {
+            System.err.println("Parsing error: function does not exist");
+            return null;
+        }
+
+        return new Expression(arguments, f);
     }
 
-    private Expression build(ArrayList<String> elements) {
-        return null;
-    }
+    public ArrayList<String> split(String str) {
+        ArrayList<String> list = new ArrayList<>();
+        int start = 0, end;
+        int depth = 0;
 
-    //format
-    //split into elements
-    //split into sub expressions by priority
+        for (int i = 0; i < str.length(); i++) {
+            if (str.charAt(i) == ',' && depth == 0) {
+                end = i;
+                list.add(str.substring(start, end));
+                start = end + 1;
+            }
+            else if (str.charAt(i) == '(') {
+                depth++;
+            }
+            else if (str.charAt(i) == ')') {
+                depth--;
+            }
+        }
+
+        list.add(str.substring(start));
+
+        if (depth != 0) {
+            // invalid parentheses
+            System.err.println("Invalid parentheses");
+        }
+
+        return list;
+    }
 }

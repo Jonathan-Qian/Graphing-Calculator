@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class Renderer {
     private int width, height;
-    private Calculator calculator;
+    Calculator calculator;
 
     public Renderer(int width, int height, Calculator calculator) {
         this.width = width;

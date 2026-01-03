@@ -44,7 +44,7 @@ public class Constant {
         return constantMap;
     }
 
-    public static double getConstantValue(String symbol) {
+    public static Double getConstantValue(String symbol) {
         return constantMap.get(symbol);
     }
 }

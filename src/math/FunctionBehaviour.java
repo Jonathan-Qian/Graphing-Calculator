@@ -1,8 +1,8 @@
 package math;
 
 public abstract class FunctionBehaviour {
-    final int priority;
-    final int minNumArguments, maxNumArguments;
+    private final int priority;
+    private final int minNumArguments, maxNumArguments;
 
     // any combination of the following  is valid (any negative number means infinity):
     // at least n argument: minNumArguments = n, maxNumArguments = -1
@@ -34,6 +34,10 @@ public abstract class FunctionBehaviour {
 
     // returns null if arguments outside of domain or result outside of range
     public abstract Double behaviour(double[] arguments);
+
+    public boolean canHaveNoArguments() {
+        return minNumArguments < 1;
+    }
 
     private boolean isNumArgumentsValid(Element[] arguments) {
         if (arguments.length < minNumArguments) {
