@@ -25,4 +25,8 @@ public class Calculator {
     public void addExpression(Expression expression) {
         expressions.add(expression);
     }
+
+    public void removeExpression(int index) {
+        expressions.remove(index);
+    }
 }

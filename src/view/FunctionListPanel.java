@@ -24,8 +24,8 @@ public class FunctionListPanel extends JPanel {
                 return false;
             }
         };
-        Object[] newHeaders = {"Symbol/Name", "Priority", "Number of Arguments"};
-        tableModel.setColumnIdentifiers(newHeaders);
+        Object[] headers = {"Symbol/Name", "Priority", "Number of Arguments"};
+        tableModel.setColumnIdentifiers(headers);
         populateTable();
         functionList = new JTable(tableModel);
         scrollPane = new JScrollPane(functionList);

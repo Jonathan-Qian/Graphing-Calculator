@@ -17,7 +17,7 @@ import java.awt.event.ActionListener;
 
 public class ExpressionListPanel extends JPanel implements ActionListener {
     private JPanel topBar;
-    private JButton addButton;
+    private JButton addButton, removeButton;
     private JTable expressionList;
     private DefaultTableModel tableModel;
     private JScrollPane scrollPane;
@@ -33,7 +33,13 @@ public class ExpressionListPanel extends JPanel implements ActionListener {
         addButton.addActionListener(this);
         topBar.add(addButton, BorderLayout.EAST);
 
+        removeButton = new JButton("-");
+        removeButton.addActionListener(this);
+        topBar.add(removeButton, BorderLayout.WEST);
+
         tableModel = new DefaultTableModel(0, 1);
+        Object[] headers = {"Expressions"};
+        tableModel.setColumnIdentifiers(headers);
         tableModel.addTableModelListener(new TableModelListener() {
             @Override
             public void tableChanged(TableModelEvent e) {
@@ -63,6 +69,15 @@ public class ExpressionListPanel extends JPanel implements ActionListener {
         if (e.getSource() == addButton) {
             tableModel.addRow(new Object[] {""});
             MainView.functionViewportPanel.renderer.calculator.addExpression(new Expression(new Element[] {new Number(0), new Number(0)}, Function.getFunctionBehaviour("+")));
+        }
+        else if (e.getSource() == removeButton) {
+            int selectedRowIndex = expressionList.getSelectedRow();
+
+            if (selectedRowIndex != -1) {
+                tableModel.removeRow(selectedRowIndex);
+                MainView.functionViewportPanel.renderer.calculator.removeExpression(selectedRowIndex);
+                MainView.functionViewportPanel.repaint();
+            }
         }
     }
 }
